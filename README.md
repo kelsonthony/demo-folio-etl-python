@@ -108,7 +108,7 @@ gunicorn -w 4 -b 0.0.0.0:5001 main:app
 
 ## Swagger Documentation
 
-![alt text](<Captura de Tela 2025-02-23 às 12.52.59.png>)
+![alt text](img/python-api-doc-demo.png)
 
 ## Additional Resources
 - Instance Data API Example:
