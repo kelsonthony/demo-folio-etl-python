@@ -1,17 +1,119 @@
-## commands 
+# ETL API Python for FOLIO
 
-pip3 install flask pandas requests openpyxl
+## Overview
+This project provides a simple ETL (Extract, Transform, Load) process exposed through a REST API built with Flask. The API includes an endpoint to trigger the ETL process and returns the results.
 
+The project includes Swagger documentation using **Flask-RESTx**.
+
+## Prerequisites
+Ensure you have the following installed on your system:
+- Python 3
+- pip (Python package manager)
+
+## Installation
+### 1. Clone the Repository
+```sh
+git clone <repository_url>
+cd <repository_folder>
+```
+
+### 2. Create a Virtual Environment
+```sh
 python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-pip3 install -r requirements.txt
-pip3 install sendgrid
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate    # On Windows
+```
+
+### 3. Install Dependencies
+```sh
+pip install -r requirements.txt
+```
+
+### 4. Unit Tests 
+
+```sh
+pip install pytest flask-testing
+pytest
 
 
- create a instance 
+```
 
+## Running the Application
+To start the Flask application, run:
+```sh
+python3 main.py
+```
 
- https://folio-quesnelia-okapi.dev.folio.org/inventory/instances
+The API will be available at:
+```
+http://localhost:5001/
+```
 
- {"discoverySuppress":false,"staffSuppress":false,"previouslyHeld":false,"source":"FOLIO","catalogedDate":"2025-02-11","title":"Test Title","indexTitle":"Simple index test","series":[{"value":"123123"},{"value":"312312"}],"precedingTitles":[{"title":"Preceding","identifiers":[{"identifierTypeId":"8261054f-be78-422d-bd51-4ed9f33c3422","value":"1234567890000"}]}],"identifiers":[{"identifierTypeId":"3187432f-9434-40a8-8782-35a111a1491e","value":"312312321ewq"}],"contributors":[{"name":"John","contributorNameTypeId":"2b94c631-fca9-4892-a730-03ee529ffe2a","contributorTypeText":"1231321","primary":true,"contributorTypeId":"28de45ae-f0ca-46fe-9f89-283313b3255b"}],"publication":[{"publisher":"Publisher","role":"my role","place":"USA","dateOfPublication":"2025-01-01"}],"editions":["1st"],"physicalDescriptions":["some description"],"instanceTypeId":"3363cdb1-e644-446c-82a4-dc3a1d4395b9","natureOfContentTermIds":["f5908d05-b16a-49cf-b192-96d55a94a0d1"],"instanceFormatIds":["788aa9a6-5f0b-4c52-957b-998266ee3bd3"],"languages":["eng"],"publicationFrequency":["1"],"notes":[{"instanceNoteTypeId":"a6a5550f-4981-4b48-b821-a57d5c8ca3b3","note":"my note","staffOnly":false}],"electronicAccess":[{"uri":"www.loclahost.com","linkText":"www.loclahost.com","publicNote":"www.loclahost.com"}],"subjects":[{"value":"my subject"},{"value":"anothetr subject"}],"classifications":[{"classificationNumber":"002","classificationTypeId":"e8662436-75a8-4984-bebc-531e38c774a0"}],"succeedingTitles":[],"parentInstances":[],"childInstances":[],"id":"ff6cb1f0-160b-461a-81c0-f35d97c17e61"}
+## API Documentation (Swagger)
+The API documentation is available at:
+```
+http://localhost:5001/swagger-ui/
+```
+You can also access the raw Swagger JSON at:
+```
+http://localhost:5001/swagger.json
+```
+
+## API Endpoints
+### Run ETL Process
+**Endpoint:**
+```
+POST /etl/run-etl
+```
+
+**Description:**
+Triggers the ETL process and returns the status of each processed user.
+
+**Response Example:**
+```json
+{
+  "message": "ETL process completed",
+  "data": [
+    {
+      "user_id": 123,
+      "status": "processed"
+    }
+  ]
+}
+```
+
+## Dependencies
+This project uses the following dependencies:
+- Flask
+- Flask-RESTx
+- Pandas
+- Requests
+- OpenPyXL
+- SendGrid (for email notifications, if applicable)
+
+To install dependencies separately:
+```sh
+pip install flask pandas requests openpyxl flask-restx sendgrid
+```
+
+## Deployment
+To deploy this API on a production server, consider using **Gunicorn**:
+```sh
+pip install gunicorn
+```
+Run the application with:
+```sh
+gunicorn -w 4 -b 0.0.0.0:5001 main:app
+```
+
+## Swagger Documentation
+
+![alt text](<Captura de Tela 2025-02-23 às 12.52.59.png>)
+
+## Additional Resources
+- Instance Data API Example:
+  [`https://folio-quesnelia-okapi.dev.folio.org/inventory/instances`](https://folio-quesnelia-okapi.dev.folio.org/inventory/instances)
+
+## License
+This project is licensed under the MIT License.
+
